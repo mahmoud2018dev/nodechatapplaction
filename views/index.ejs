@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>chat app</title>
+
+
+
+
+  </head>
+  <body>
+  <div class="container">
+    <h2>chat application</h2>
+    <div class="panel panel-default">
+      <div  id="user" class="panel-heading">chat</div>
+      <div id="message" class="panel-body">chat Content</div>
+    </div>
+  </div>
+<div class="container">
+    <form action="">
+    <input id="name" class="form-control" type="text" placeholder="enter your name"><br>
+    <input id="m" class="form-control" placeholder="enter your message" autocomplete="off"><br>
+    <button class="btn  btn-success">send</button>
+    </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <script>
+    var socket=io();
+    $('form').submit(function(){
+    socket.emit('chat message',{'msg':$('#m').val(),'user':$('#name').val()});
+    $('#m').val('');
+     $('#user').text($('#name').val());
+    return false;
+    });
+    socket.on('chat message',function(msg){
+    $('#message').append($('<h1>').text(msg));
+    });
+    </script>
+  </body>
+</html>
